@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hime Helps You Get Ready!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #F5F0FF;
+      --purple-lt:  #E9D5FF;
+      --purple-mid: #C084FC;
+      --purple:     #7C3AED;
+      --purple-dk:  #4C1D95;
+      --blue:       #93C5FD;
+      --yellow:     #FDE68A;
+      --pink:       #FCE7F3;
+      --green:      #86EFAC;
+      --white:      #FFFFFF;
+      --shadow:     rgba(124, 58, 237, 0.18);
+    }
+
+    /* ─── Base ──────────────────────────────────────────── */
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ─── Sparkle canvas ────────────────────────────────── */
+    #sparkle-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Page wrapper ──────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 16px 60px;
+    }
+
+    /* ─── Header ────────────────────────────────────────── */
+    .header {
+      text-align: center;
+      padding: 44px 20px 28px;
+    }
+
+    .header h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      color: var(--purple-dk);
+      line-height: 1.15;
+      /* layered text shadow for a friendly "puffy" look */
+      text-shadow:
+        3px 3px 0 var(--purple-mid),
+        6px 6px 0 rgba(192,132,252,0.25);
+      letter-spacing: 0.01em;
+    }
+
+    .header .subtitle {
+      margin-top: 10px;
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      font-weight: 700;
+      color: var(--purple);
+    }
+
+    /* ─── Progress bar ──────────────────────────────────── */
+    .progress-wrap {
+      max-width: 520px;
+      margin: 0 auto 28px;
+      padding: 0 4px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--purple);
+      margin-bottom: 7px;
+    }
+
+    .progress-track {
+      height: 18px;
+      background: var(--purple-lt);
+      border-radius: 99px;
+      overflow: hidden;
+      border: 2.5px solid var(--purple-mid);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--purple-mid), var(--purple));
+      transition: width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* shimmer on the progress bar */
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -60%;
+      width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+      animation: shimmer 2s ease infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { left: -60%; }
+      100% { left: 120%; }
+    }
+
+    /* ─── Three-column layout ───────────────────────────── */
+    .columns {
+      display: grid;
+      grid-template-columns: 190px 1fr 190px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    /* ─── Hime side panels ──────────────────────────────── */
+    .hime-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding-top: 16px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .hime-img {
+      width: 100%;
+      max-width: 170px;
+      filter: drop-shadow(0 6px 18px var(--shadow));
+      animation: float 3.5s ease-in-out infinite;
+    }
+
+    .hime-img.delay1 { animation-delay: -1.2s; }
+    .hime-img.delay2 { animation-delay: -2.4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(-1deg); }
+      50%       { transform: translateY(-14px) rotate(1deg); }
+    }
+
+    /* decorative star badge near Hime */
+    .hime-badge {
+      background: var(--yellow);
+      color: var(--purple-dk);
+      font-family: 'Fredoka One', cursive;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 99px;
+      border: 2.5px solid var(--purple-mid);
+      box-shadow: 2px 2px 0 var(--purple-mid);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* ─── Checklist ─────────────────────────────────────── */
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* ─── Check item card ───────────────────────────────── */
+    .check-item {
+      background: var(--white);
+      border: 2.5px solid var(--purple-lt);
+      border-radius: 22px;
+      padding: 15px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 3px 12px var(--shadow);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+
+    .check-item:hover {
+      border-color: var(--purple-mid);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px var(--shadow);
+    }
+
+    .check-item:focus-visible {
+      outline: 3px solid var(--purple-mid);
+      outline-offset: 2px;
+    }
+
+    .check-item.done {
+      background: var(--purple-lt);
+      border-color: var(--purple-mid);
+    }
+
+    /* pop animation when checked */
+    @keyframes pop {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.04); }
+      70%  { transform: scale(0.97); }
+      100% { transform: scale(1); }
+    }
+
+    .check-item.popping { animation: pop 0.35s ease forwards; }
+
+    /* ─── Custom circle checkbox ────────────────────────── */
+    .cb-ring {
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      border-radius: 50%;
+      border: 3px solid var(--purple-mid);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s, border-color 0.25s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cb-ring::after {
+      content: '✓';
+      color: var(--white);
+      font-weight: 900;
+      font-size: 1.15rem;
+      opacity: 0;
+      transform: scale(0.4) rotate(-20deg);
+      transition: opacity 0.2s, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .check-item.done .cb-ring {
+      background: var(--purple);
+      border-color: var(--purple);
+      transform: scale(1.05);
+    }
+
+    .check-item.done .cb-ring::after {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+
+    /* ─── Item content ──────────────────────────────────── */
+    .item-emoji {
+      font-size: 1.7rem;
+      line-height: 1;
+      flex-shrink: 0;
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.12));
+    }
+
+    .item-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-says {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--purple-mid);
+      transition: color 0.2s;
+    }
+
+    .check-item.done .item-says { color: var(--purple); }
+
+    .item-name {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.25rem;
+      color: var(--purple-dk);
+      line-height: 1.15;
+      transition: opacity 0.2s, text-decoration 0.2s;
+    }
+
+    .check-item.done .item-name {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    .item-note {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--purple);
+      margin-top: 1px;
+      transition: opacity 0.2s;
+    }
+
+    .check-item.done .item-note { opacity: 0.5; }
+
+    /* ─── Celebration card ──────────────────────────────── */
+    .celebration {
+      display: none;
+      margin-top: 18px;
+      background: linear-gradient(135deg, var(--pink) 0%, var(--purple-lt) 100%);
+      border: 3px solid var(--purple-mid);
+      border-radius: 24px;
+      padding: 22px 24px;
+      text-align: center;
+      box-shadow: 0 6px 24px var(--shadow);
+    }
+
+    .celebration.show {
+      display: block;
+      animation: pop-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes pop-in {
+      0%   { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+
+    .celebration p {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+      color: var(--purple-dk);
+      text-shadow: 1px 1px 0 rgba(255,255,255,0.7);
+    }
+
+    /* ─── Reset button ──────────────────────────────────── */
+    .reset-wrap {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .reset-btn {
+      background: transparent;
+      border: 2px solid var(--purple-lt);
+      color: var(--purple);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 8px 22px;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      letter-spacing: 0.03em;
+    }
+
+    .reset-btn:hover {
+      background: var(--purple-lt);
+      border-color: var(--purple-mid);
+      color: var(--purple-dk);
+    }
+
+    /* ─── Bottom Hime ───────────────────────────────────── */
+    .bottom-hime {
+      display: flex;
+      justify-content: center;
+      padding: 30px 0 10px;
+    }
+
+    .bottom-hime img {
+      width: 150px;
+      filter: drop-shadow(0 6px 18px var(--shadow));
+      animation: float 4s ease-in-out infinite;
+      animation-delay: -0.8s;
+    }
+
+    /* ─── Responsive ────────────────────────────────────── */
+    @media (max-width: 740px) {
+      .header { padding: 28px 16px 18px; }
+
+      .columns {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      /* On mobile: put both side Himes in a cute row at the top,
+         before the checklist. Use CSS order to reflow. */
+      .hime-side {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 24px;
+        position: static;
+        padding: 0 0 20px;
+      }
+
+      /* Stack: left-hime (order 0), right-hime (order 1) → both float to top;
+         checklist panel sits below (order 2) */
+      .hime-side:first-child  { order: 0; }
+      .hime-side:last-child   { order: 1; }
+      .columns > div:nth-child(2) { order: 2; }
+
+      .hime-img { max-width: 110px; }
+
+      .hime-badge {
+        font-size: 0.72rem;
+        padding: 5px 10px;
+      }
+
+      /* Bigger tap targets on phone */
+      .check-item {
+        padding: 16px 16px;
+        border-radius: 18px;
+        gap: 12px;
+      }
+
+      .cb-ring {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        font-size: 1.2rem;
+      }
+
+      .item-emoji { font-size: 1.55rem; }
+
+      .item-name { font-size: 1.15rem; }
+
+      .item-says { font-size: 0.68rem; }
+
+      .checklist { gap: 10px; }
+
+      .bottom-hime img { width: 120px; }
+
+      /* Slightly more breathing room at bottom for iPhone home bar */
+      .page { padding-bottom: 80px; }
+    }
+
+    @media (min-width: 741px) and (max-width: 900px) {
+      .columns {
+        grid-template-columns: 140px 1fr 140px;
+      }
+      .hime-img { max-width: 130px; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="sparkle-canvas"></canvas>
+
+<div class="page">
+
+  <!-- Header -->
+  <header class="header">
+    <h1>Hime Helps You Get Ready! ⭐</h1>
+    <p class="subtitle">Check everything off before you go — you've got this!</p>
+  </header>
+
+  <!-- Progress bar -->
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span id="prog-label">0 of 7 done</span>
+      <span id="prog-pct">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="prog-fill"></div>
+    </div>
+  </div>
+
+  <!-- Three-column layout -->
+  <div class="columns">
+
+    <!-- Left: Hime 1 -->
+    <div class="hime-side">
+      <img src="Hime/Hime 1.PNG" alt="Hime waving hello" class="hime-img delay1">
+      <div class="hime-badge">Good morning!<br>☀️ Let's do this!</div>
+    </div>
+
+    <!-- Centre: Checklist -->
+    <div>
+      <div class="checklist" id="checklist"></div>
+      <div class="celebration" id="celebration">
+        <p>🌟 Hime says you're ready!<br>Have an amazing day! ⭐✨</p>
+      </div>
+      <div class="reset-wrap">
+        <button class="reset-btn" id="reset-btn">✦ Clear for a new day</button>
+      </div>
+    </div>
+
+    <!-- Right: Hime 3 -->
+    <div class="hime-side">
+      <img src="Hime/Hime 3.PNG" alt="Hime cheering" class="hime-img delay2">
+      <div class="hime-badge">You're doing<br>great! 💜</div>
+    </div>
+
+  </div><!-- /columns -->
+
+  <!-- Bottom: Hime 2 -->
+  <div class="bottom-hime">
+    <img src="Hime/Hime 2.PNG" alt="Hime sitting happily">
+  </div>
+
+</div><!-- /page -->
+
+<script>
+  /* ───────────────────────────────────────────────────────
+     Data
+  ─────────────────────────────────────────────────────── */
+  const ITEMS = [
+    { id: 'pump-battery',  emoji: '🔋', says: 'Hime says to think about your',        name: 'Pump battery',       note: '' },
+    { id: 'pump-insulin',  emoji: '💉', says: 'Hime says to think about your',        name: 'Pump insulin levels', note: '' },
+    { id: 'medication',    emoji: '💊', says: 'Hime says to think about your',        name: 'Medication',         note: '' },
+    { id: 'breakfast',     emoji: '🍳', says: 'Hime says to think about your',        name: 'Breakfast',          note: '' },
+    { id: 'deodorant',     emoji: '✨', says: 'Hime says to think about your',        name: 'Deodorant',          note: '' },
+    { id: 'bag',           emoji: '🎒', says: 'Hime says to think about getting your',name: 'Bag packed',         note: '' },
+    { id: 'teeth',         emoji: '🦷', says: 'Hime says to think about your',        name: 'Teeth brushed',      note: '' },
+    { id: 'opal',          emoji: '🚌', says: 'Hime says to think about your',        name: 'Opal card',          note: '(for outing days)', optional: true },
+  ];
+
+  /* ───────────────────────────────────────────────────────
+     State / localStorage (keyed by date → auto-resets)
+  ─────────────────────────────────────────────────────── */
+  const todayKey = () => 'hime-checklist-' + new Date().toISOString().slice(0, 10);
+
+  let state = {};
+
+  function loadState() {
+    try { state = JSON.parse(localStorage.getItem(todayKey()) || '{}'); }
+    catch(e) { state = {}; }
+  }
+
+  function saveState() {
+    localStorage.setItem(todayKey(), JSON.stringify(state));
+  }
+
+  /* ───────────────────────────────────────────────────────
+     Render checklist
+  ─────────────────────────────────────────────────────── */
+  function render() {
+    const container = document.getElementById('checklist');
+    container.innerHTML = '';
+
+    ITEMS.forEach(item => {
+      const done = !!state[item.id];
+
+      const el = document.createElement('div');
+      el.className = 'check-item' + (done ? ' done' : '');
+      el.setAttribute('role', 'checkbox');
+      el.setAttribute('aria-checked', String(done));
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('aria-label', item.name);
+
+      el.innerHTML = `
+        <div class="cb-ring"></div>
+        <div class="item-emoji">${item.emoji}</div>
+        <div class="item-body">
+          <div class="item-says">${item.says}</div>
+          <div class="item-name">${item.name}</div>
+          ${item.note ? `<div class="item-note">${item.note}</div>` : ''}
+        </div>
+      `;
+
+      el.addEventListener('click', () => toggle(item.id, el));
+      el.addEventListener('keydown', e => {
+        if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(item.id, el); }
+      });
+
+      container.appendChild(el);
+    });
+
+    updateProgress();
+  }
+
+  function toggle(id, el) {
+    state[id] = !state[id];
+    saveState();
+
+    // update this element in-place (avoids full re-render flash)
+    const done = state[id];
+    el.classList.toggle('done', done);
+    el.setAttribute('aria-checked', String(done));
+
+    // pop animation
+    el.classList.remove('popping');
+    void el.offsetWidth; // reflow
+    el.classList.add('popping');
+    el.addEventListener('animationend', () => el.classList.remove('popping'), { once: true });
+
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const required  = ITEMS.filter(i => !i.optional);
+    const doneCount = required.filter(i => state[i.id]).length;
+    const total     = required.length;
+    const pct       = Math.round((doneCount / total) * 100);
+
+    document.getElementById('prog-fill').style.width  = pct + '%';
+    document.getElementById('prog-label').textContent = `${doneCount} of ${total} done`;
+    document.getElementById('prog-pct').textContent   = pct + '%';
+
+    const cel = document.getElementById('celebration');
+    if (doneCount === total) {
+      cel.classList.add('show');
+      launchConfetti();
+    } else {
+      cel.classList.remove('show');
+    }
+  }
+
+  /* ───────────────────────────────────────────────────────
+     Reset
+  ─────────────────────────────────────────────────────── */
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    state = {};
+    saveState();
+    render();
+  });
+
+  /* ───────────────────────────────────────────────────────
+     Sparkle canvas — gentle floating orbs
+  ─────────────────────────────────────────────────────── */
+  (function sparkles() {
+    const canvas = document.getElementById('sparkle-canvas');
+    const ctx    = canvas.getContext('2d');
+    const colors = ['#C084FC','#E9D5FF','#93C5FD','#FDE68A','#FCE7F3','#86EFAC','#FFFFFF'];
+
+    let W, H, orbs;
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    function makeOrbs() {
+      orbs = Array.from({ length: 38 }, () => ({
+        x:    Math.random() * W,
+        y:    Math.random() * H,
+        r:    2 + Math.random() * 5,
+        vy:   -(0.25 + Math.random() * 0.55),
+        vx:   (Math.random() - 0.5) * 0.3,
+        alpha: 0.15 + Math.random() * 0.45,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        phase: Math.random() * Math.PI * 2,
+      }));
+    }
+
+    function draw(t) {
+      ctx.clearRect(0, 0, W, H);
+      orbs.forEach(o => {
+        // gentle sine wobble
+        const wobble = Math.sin(t * 0.001 + o.phase) * 0.8;
+        o.x += o.vx + wobble * 0.02;
+        o.y += o.vy;
+        if (o.y + o.r < 0) { o.y = H + o.r; o.x = Math.random() * W; }
+
+        ctx.save();
+        ctx.globalAlpha = o.alpha;
+        ctx.beginPath();
+        ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
+        ctx.fillStyle = o.color;
+        ctx.fill();
+        ctx.restore();
+      });
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', () => { resize(); makeOrbs(); });
+    resize();
+    makeOrbs();
+    requestAnimationFrame(draw);
+  })();
+
+  /* ───────────────────────────────────────────────────────
+     Confetti burst on completion
+  ─────────────────────────────────────────────────────── */
+  function launchConfetti() {
+    const canvas = document.getElementById('sparkle-canvas');
+    const ctx    = canvas.getContext('2d');
+    const colors = ['#C084FC','#FDE68A','#93C5FD','#86EFAC','#FCE7F3','#7C3AED'];
+    const pieces = Array.from({ length: 80 }, () => ({
+      x:    canvas.width  * 0.5,
+      y:    canvas.height * 0.4,
+      vx:   (Math.random() - 0.5) * 14,
+      vy:   (Math.random() - 0.9) * 12,
+      r:    3 + Math.random() * 5,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      life: 1,
+      decay: 0.012 + Math.random() * 0.01,
+    }));
+
+    function step() {
+      pieces.forEach(p => {
+        p.x  += p.vx;
+        p.y  += p.vy;
+        p.vy += 0.35; // gravity
+        p.life -= p.decay;
+        if (p.life <= 0) return;
+        ctx.save();
+        ctx.globalAlpha = p.life * 0.85;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        ctx.restore();
+      });
+      if (pieces.some(p => p.life > 0)) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ───────────────────────────────────────────────────────
+     Init
+  ─────────────────────────────────────────────────────── */
+  loadState();
+  render();
+</script>
+</body>
+</html>
