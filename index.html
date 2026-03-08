@@ -380,27 +380,35 @@
     @media (max-width: 740px) {
       .header { padding: 28px 16px 18px; }
 
+      /* Two Himes side-by-side in row 1, checklist full-width in row 2 */
       .columns {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
         gap: 0;
       }
 
-      /* On mobile: put both side Himes in a cute row at the top,
-         before the checklist. Use CSS order to reflow. */
-      .hime-side {
-        flex-direction: row;
-        justify-content: center;
-        align-items: flex-end;
-        gap: 24px;
-        position: static;
-        padding: 0 0 20px;
+      .hime-side:first-child {
+        grid-column: 1;
+        grid-row: 1;
       }
 
-      /* Stack: left-hime (order 0), right-hime (order 1) → both float to top;
-         checklist panel sits below (order 2) */
-      .hime-side:first-child  { order: 0; }
-      .hime-side:last-child   { order: 1; }
-      .columns > div:nth-child(2) { order: 2; }
+      .hime-side:last-child {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      .columns > div:nth-child(2) {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+
+      .hime-side {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        position: static;
+        padding: 0 0 16px;
+      }
 
       .hime-img { max-width: 110px; }
 
