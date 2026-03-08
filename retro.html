@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>~*~ HIME'S MORNING CHECKLIST ~*~ GEOCITIES ~*~</title>
+  <style>
+    /* =====================================================
+       HIME'S GEOCITIES PAGE ~ EST. 1999
+       Best coded in Notepad by hand
+    ===================================================== */
+
+    body {
+      font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+      background-color: #0a0020;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px),
+        radial-gradient(circle, rgba(200,150,255,0.6) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px);
+      background-size: 73px 73px, 47px 47px, 31px 31px;
+      background-position: 0 0, 23px 37px, 11px 19px;
+      color: #ff99ff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* ── Marquee bars ── */
+    .marquee-top {
+      background: #330066;
+      color: #ffff00;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 7px 0;
+      border-top: 3px solid #ff00ff;
+      border-bottom: 3px solid #ff00ff;
+      letter-spacing: 0.05em;
+    }
+
+    .marquee-bottom {
+      background: #1a0033;
+      color: #00ffff;
+      font-size: 13px;
+      padding: 6px 0;
+      border-top: 3px solid #00ffff;
+      border-bottom: 3px solid #00ffff;
+    }
+
+    /* ── Rainbow HR ── */
+    hr.rainbow {
+      border: none;
+      height: 5px;
+      background: linear-gradient(90deg,
+        #ff0000, #ff7700, #ffff00, #00ff00,
+        #0099ff, #aa00ff, #ff00ff, #ff0000);
+      margin: 10px 0;
+    }
+
+    hr.thin-rainbow {
+      border: none;
+      height: 3px;
+      background: linear-gradient(90deg,
+        #ff00ff, #aa00ff, #0099ff, #00ffff,
+        #00ff00, #ffff00, #ff7700, #ff00ff);
+      margin: 6px 0;
+    }
+
+    /* ── Page center wrapper ── */
+    .page-center {
+      text-align: center;
+      padding: 14px 12px 0;
+    }
+
+    /* ── Under construction ── */
+    .under-construction {
+      display: inline-block;
+      background: repeating-linear-gradient(
+        45deg,
+        #ffff00 0px, #ffff00 12px,
+        #000000 12px, #000000 24px
+      );
+      color: #000;
+      font-weight: bold;
+      font-family: 'Comic Sans MS', cursive;
+      padding: 7px 22px;
+      font-size: 0.85rem;
+      border: 4px solid #ff0000;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      box-shadow: 4px 4px 0 #ff0000;
+    }
+
+    /* ── Rainbow title ── */
+    @keyframes rainbow-cycle {
+      0%   { color: #ff0000; text-shadow: 2px 2px 8px #ff000066; }
+      16%  { color: #ff7700; text-shadow: 2px 2px 8px #ff770066; }
+      32%  { color: #ffff00; text-shadow: 2px 2px 8px #ffff0066; }
+      48%  { color: #00ff88; text-shadow: 2px 2px 8px #00ff8866; }
+      64%  { color: #00ccff; text-shadow: 2px 2px 8px #00ccff66; }
+      80%  { color: #ff00ff; text-shadow: 2px 2px 8px #ff00ff66; }
+      100% { color: #ff0000; text-shadow: 2px 2px 8px #ff000066; }
+    }
+
+    .rainbow-title {
+      font-family: 'Comic Sans MS', cursive;
+      font-size: clamp(1.6rem, 6vw, 2.8rem);
+      font-weight: bold;
+      animation: rainbow-cycle 2.5s linear infinite;
+      line-height: 1.2;
+      margin: 8px 0 4px;
+    }
+
+    .subtitle-retro {
+      color: #cc99ff;
+      font-size: 1rem;
+      margin: 0 0 10px;
+    }
+
+    /* ── Blink ── */
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    .blink { animation: blink 1s step-start infinite; }
+
+    /* ── Spin ── */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .spin {
+      display: inline-block;
+      animation: spin 2s linear infinite;
+    }
+
+    /* ── Hit counter ── */
+    .hit-counter-wrap {
+      font-size: 0.82rem;
+      color: #cc99ff;
+      margin: 6px 0;
+    }
+    .hit-counter {
+      font-family: 'Courier New', monospace;
+      background: #000;
+      color: #00ff00;
+      padding: 3px 10px;
+      border: 3px inset #444;
+      display: inline-block;
+      font-size: 1rem;
+      letter-spacing: 0.25em;
+    }
+
+    /* ── Nav links ── */
+    .retro-nav {
+      margin: 8px 0 4px;
+      font-size: 0.9rem;
+    }
+    .retro-nav a {
+      color: #00ffff;
+      font-weight: bold;
+      text-decoration: underline;
+      margin: 0 6px;
+    }
+    .retro-nav a:hover {
+      color: #ffff00;
+      text-decoration: none;
+    }
+    .retro-nav a:visited { color: #ff99ff; }
+
+    /* ── Main table layout ── */
+    table.main-layout {
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    td.side-col {
+      width: 155px;
+      vertical-align: middle;
+      text-align: center;
+      padding: 12px 8px;
+    }
+
+    td.center-col {
+      vertical-align: top;
+      padding: 10px 16px;
+    }
+
+    /* ── Hime images ── */
+    @keyframes pulse-glow {
+      0%, 100% {
+        filter:
+          drop-shadow(0 0 6px #ff00ff)
+          drop-shadow(0 0 16px #aa00ff);
+      }
+      50% {
+        filter:
+          drop-shadow(0 0 14px #ff00ff)
+          drop-shadow(0 0 32px #ff00ff)
+          drop-shadow(0 0 50px #aa00ff);
+      }
+    }
+
+    .hime-retro {
+      max-width: 130px;
+      width: 100%;
+      animation: pulse-glow 2.5s ease-in-out infinite;
+    }
+
+    .hime-retro.delay { animation-delay: -1.25s; }
+
+    .hime-caption {
+      color: #ff99ff;
+      font-size: 0.78rem;
+      display: block;
+      margin-top: 5px;
+    }
+
+    .hime-blink-label {
+      font-size: 0.82rem;
+      font-weight: bold;
+      display: block;
+      margin-top: 3px;
+    }
+
+    /* ── Side decorations ── */
+    .side-deco {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      line-height: 2;
+    }
+
+    /* ── Progress bar ── */
+    .progress-label-retro {
+      color: #ccaaff;
+      font-size: 0.88rem;
+      margin: 4px 0;
+    }
+
+    .progress-label-retro span { color: #ffff00; }
+
+    .progress-track-retro {
+      background: #1a0033;
+      border: 2px solid #ff00ff;
+      height: 20px;
+      overflow: hidden;
+      margin: 5px 0 10px;
+      box-shadow: 0 0 6px #ff00ff44;
+    }
+
+    .progress-fill-retro {
+      height: 100%;
+      width: 0%;
+      background: repeating-linear-gradient(
+        90deg,
+        #ff00ff 0px,  #ff00ff 12px,
+        #7700cc 12px, #7700cc 24px
+      );
+      transition: width 0.4s ease;
+      position: relative;
+    }
+
+    /* ── Checklist items ── */
+    .retro-item {
+      background: rgba(40, 0, 80, 0.85);
+      border: 2px solid #ff00ff;
+      padding: 9px 12px;
+      margin: 5px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s;
+      text-align: left;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .retro-item:hover {
+      background: rgba(80, 0, 120, 0.9);
+      box-shadow: 0 0 12px #ff00ff88, inset 0 0 8px #ff00ff22;
+    }
+
+    .retro-item:focus-visible {
+      outline: 2px dashed #ffff00;
+      outline-offset: 2px;
+    }
+
+    .retro-item.done {
+      background: rgba(0, 40, 20, 0.8);
+      border-color: #00ff88;
+      box-shadow: 0 0 8px #00ff8844;
+    }
+
+    .retro-item.done .item-name-text {
+      text-decoration: line-through;
+      color: #00ff88;
+    }
+
+    .retro-item.done .item-says-text {
+      color: #00aa55;
+    }
+
+    .retro-cb {
+      width: 18px;
+      height: 18px;
+      accent-color: #ff00ff;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .retro-emoji {
+      font-size: 1.35rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .retro-text-wrap { flex: 1; min-width: 0; }
+
+    .item-says-text {
+      font-size: 0.68rem;
+      color: #cc99ff;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: block;
+    }
+
+    .item-name-text {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #ffccff;
+      display: block;
+      line-height: 1.2;
+    }
+
+    .item-note-text {
+      font-size: 0.7rem;
+      color: #ffff00;
+      display: block;
+    }
+
+    /* ── Celebration ── */
+    .retro-celebrate {
+      display: none;
+      background: #000;
+      border: 4px solid #ffff00;
+      padding: 14px;
+      text-align: center;
+      margin-top: 10px;
+      box-shadow: 0 0 20px #ffff0066;
+    }
+
+    .retro-celebrate.show { display: block; }
+
+    .retro-celebrate .cel-main {
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: rainbow-cycle 1s linear infinite;
+      display: block;
+    }
+
+    .retro-celebrate .cel-sub {
+      color: #ffff00;
+      font-size: 0.92rem;
+      display: block;
+      margin-top: 5px;
+    }
+
+    /* ── Reset button (Windows 95 style) ── */
+    .retro-btn {
+      background: #c0c0c0;
+      color: #000000;
+      border-top: 3px solid #ffffff;
+      border-left: 3px solid #ffffff;
+      border-bottom: 3px solid #444444;
+      border-right: 3px solid #444444;
+      font-family: 'Comic Sans MS', cursive;
+      font-size: 0.88rem;
+      font-weight: bold;
+      padding: 7px 18px;
+      cursor: pointer;
+      margin-top: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .retro-btn:active {
+      border-top: 3px solid #444444;
+      border-left: 3px solid #444444;
+      border-bottom: 3px solid #ffffff;
+      border-right: 3px solid #ffffff;
+    }
+
+    /* ── Bottom Hime ── */
+    .bottom-hime-wrap {
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    .hime-bottom {
+      max-width: 100px;
+      animation: pulse-glow 3s ease-in-out infinite;
+      animation-delay: -0.5s;
+    }
+
+    /* ── Footer ── */
+    .retro-footer {
+      text-align: center;
+      padding: 10px 12px 20px;
+      font-size: 0.75rem;
+      color: #7755aa;
+      line-height: 1.8;
+    }
+
+    .retro-footer span { color: #9966cc; }
+
+    /* ── Divider stars ── */
+    .star-divider {
+      text-align: center;
+      color: #ff99ff;
+      font-size: 0.9rem;
+      margin: 4px 0;
+      letter-spacing: 0.3em;
+    }
+
+    /* ══════════════════════════════════════
+       MOBILE — stacks nicely on iPhone
+    ══════════════════════════════════════ */
+    @media (max-width: 600px) {
+      /* Collapse table to block */
+      table.main-layout,
+      table.main-layout tbody,
+      table.main-layout tr,
+      table.main-layout td {
+        display: block;
+        width: 100% !important;
+      }
+
+      /* Right Hime column — hide on mobile */
+      td.side-col:last-child { display: none !important; }
+
+      /* Left Hime — center it as a top banner */
+      td.side-col:first-child {
+        padding: 10px 0 6px;
+        text-align: center;
+      }
+
+      .hime-retro { max-width: 100px; }
+
+      td.center-col { padding: 8px 10px; }
+
+      .rainbow-title { font-size: 1.45rem; }
+
+      .retro-item { padding: 10px 10px; }
+
+      .item-name-text { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ TOP MARQUEE ══ -->
+<marquee class="marquee-top" scrollamount="5">
+  ✨ HIME'S MORNING CHECKLIST ✨ &nbsp;&nbsp; ~*~ Get ready for school!! ~*~ &nbsp;&nbsp; ✨ Welcome to my page!! ✨ &nbsp;&nbsp; Last updated: March 1999 &nbsp;&nbsp; ✨ HIME IS CUTE!! ✨ &nbsp;&nbsp;
+</marquee>
+
+<!-- ══ PAGE HEADER ══ -->
+<div class="page-center">
+
+  <div style="margin: 14px 0 10px;">
+    <span class="under-construction">🚧 &nbsp; PAGE UNDER CONSTRUCTION &nbsp; 🚧</span>
+  </div>
+
+  <h1 class="rainbow-title">✨ Hime Helps You Get Ready! ✨</h1>
+  <p class="subtitle-retro">~*~ Morning Checklist ~*~ Est. 1999 ~*~</p>
+
+  <hr class="rainbow">
+
+  <div class="hit-counter-wrap">
+    <span class="spin">⭐</span>
+    &nbsp; You are visitor number &nbsp;
+    <span class="hit-counter" id="hit-counter">0001337</span>
+    &nbsp;
+    <span class="spin" style="animation-delay:-1s">⭐</span>
+  </div>
+
+  <div class="retro-nav">
+    <a href="index.html">[ ← Normal Version ]</a>
+    &nbsp;|&nbsp;
+    <a href="#">[ Sign Guestbook ]</a>
+    &nbsp;|&nbsp;
+    <a href="#">[ Email Me! ]</a>
+  </div>
+
+  <hr class="rainbow">
+</div>
+
+<!-- ══ MAIN THREE-COLUMN TABLE ══ -->
+<table class="main-layout" cellpadding="0" cellspacing="0">
+  <tr>
+
+    <!-- LEFT: Hime 1 -->
+    <td class="side-col">
+      <img src="Hime/Hime 1.PNG" alt="Hime waving" class="hime-retro">
+      <span class="hime-caption">~*~ Hime ~*~</span>
+      <span class="hime-blink-label blink" style="color:#ffff00;">★ KAWAII ★</span>
+      <div class="side-deco">
+        <span style="color:#ff99ff;">💜</span><br>
+        <span style="color:#00ffff;" class="blink">✦</span><br>
+        <span style="color:#ffff00;">★</span><br>
+        <span style="color:#ff00ff;" class="blink">✦</span><br>
+        <span style="color:#ff99ff;">💜</span>
+      </div>
+    </td>
+
+    <!-- CENTRE: Checklist -->
+    <td class="center-col">
+
+      <p style="color:#ffff00; font-weight:bold; font-size:0.95rem; text-align:center; margin:0 0 8px;">
+        <span class="blink">►</span>
+        &nbsp; CHECK EVERYTHING BEFORE SCHOOL!! &nbsp;
+        <span class="blink">◄</span>
+      </p>
+
+      <hr class="thin-rainbow">
+
+      <!-- Progress -->
+      <p class="progress-label-retro">
+        Progress: <span id="prog-label">0 of 7</span> &nbsp;
+        <span id="prog-pct">[0%]</span>
+      </p>
+      <div class="progress-track-retro">
+        <div class="progress-fill-retro" id="prog-fill"></div>
+      </div>
+
+      <hr class="thin-rainbow">
+
+      <!-- Items -->
+      <div id="checklist"></div>
+
+      <!-- Celebration -->
+      <div class="retro-celebrate" id="celebration">
+        <span class="cel-main">~*~ OMG YOU ARE SO READY!! ~*~</span>
+        <span class="cel-sub">
+          <span class="spin">⭐</span>
+          Hime says have an AMAZING day!!
+          <span class="spin" style="animation-delay:-1s">⭐</span>
+        </span>
+      </div>
+
+      <div style="text-align:center;">
+        <button class="retro-btn" id="reset-btn">[ Clear for a new day ]</button>
+      </div>
+
+    </td>
+
+    <!-- RIGHT: Hime 3 -->
+    <td class="side-col">
+      <img src="Hime/Hime 3.PNG" alt="Hime cheering" class="hime-retro delay">
+      <span class="hime-caption">~*~ Hime ~*~</span>
+      <span class="hime-blink-label blink" style="color:#00ffff;">★ COOL ★</span>
+      <div class="side-deco">
+        <span style="color:#00ffff;">💙</span><br>
+        <span style="color:#ffff00;" class="blink">✦</span><br>
+        <span style="color:#ff00ff;">★</span><br>
+        <span style="color:#00ff88;" class="blink">✦</span><br>
+        <span style="color:#00ffff;">💙</span>
+      </div>
+    </td>
+
+  </tr>
+</table>
+
+<!-- ══ BOTTOM SECTION ══ -->
+<div style="text-align:center; padding: 6px 12px;">
+  <hr class="rainbow">
+
+  <div class="star-divider">
+    ★ &nbsp; ✦ &nbsp; ★ &nbsp; ✦ &nbsp; ★ &nbsp; ✦ &nbsp; ★
+  </div>
+
+  <div class="bottom-hime-wrap">
+    <img src="Hime/Hime 2.PNG" alt="Hime sitting" class="hime-bottom">
+  </div>
+
+  <div class="star-divider">
+    ★ &nbsp; ✦ &nbsp; ★ &nbsp; ✦ &nbsp; ★ &nbsp; ✦ &nbsp; ★
+  </div>
+
+  <hr class="rainbow">
+</div>
+
+<!-- ══ BOTTOM MARQUEE ══ -->
+<marquee class="marquee-bottom" scrollamount="3" direction="right">
+  ★ ★ ★ &nbsp;&nbsp;&nbsp; BEST VIEWED IN NETSCAPE NAVIGATOR 4.0 AT 800×600 RESOLUTION &nbsp;&nbsp;&nbsp; ★ ★ ★ &nbsp;&nbsp;&nbsp; NO FRAMES VERSION AVAILABLE &nbsp;&nbsp;&nbsp; ★ ★ ★
+</marquee>
+
+<!-- ══ FOOTER ══ -->
+<div class="retro-footer">
+  <span>© 1999 Hime Fan Page</span>
+  &nbsp;·&nbsp;
+  Made with ♥ in Notepad
+  &nbsp;·&nbsp;
+  <span style="color:#ff9900;">No hotlinking plz!!</span>
+  &nbsp;·&nbsp;
+  <a href="index.html" style="color:#cc99ff;">Back to Modern Version</a>
+  <br>
+  <span style="color:#660099; font-size:0.7rem;">
+    This page uses best web technologies of 1999 · GeoCities Neighbourhood: EnchantedForest/6829
+  </span>
+</div>
+
+<script>
+  /* ══════════════════════════════════════
+     DATA
+  ══════════════════════════════════════ */
+  const ITEMS = [
+    { id: 'pump-battery', emoji: '🔋', says: 'Hime says to think about your',         name: 'Pump battery',        note: '',                  optional: false },
+    { id: 'pump-insulin', emoji: '💉', says: 'Hime says to think about your',         name: 'Pump insulin levels', note: '',                  optional: false },
+    { id: 'medication',   emoji: '💊', says: 'Hime says to think about your',         name: 'Medication',          note: '',                  optional: false },
+    { id: 'breakfast',    emoji: '🍳', says: 'Hime says to think about your',         name: 'Breakfast',           note: '',                  optional: false },
+    { id: 'deodorant',    emoji: '✨', says: 'Hime says to think about your',         name: 'Deodorant',           note: '',                  optional: false },
+    { id: 'bag',          emoji: '🎒', says: 'Hime says to think about getting your', name: 'Bag packed',          note: '',                  optional: false },
+    { id: 'teeth',        emoji: '🦷', says: 'Hime says to think about your',         name: 'Teeth brushed',       note: '',                  optional: false },
+    { id: 'opal',         emoji: '🚌', says: 'Hime says to think about your',         name: 'Opal card',           note: '(for outing days)', optional: true  },
+  ];
+
+  /* ══════════════════════════════════════
+     STATE
+  ══════════════════════════════════════ */
+  const todayKey = () => 'hime-checklist-' + new Date().toISOString().slice(0, 10);
+  let state = {};
+
+  function loadState() {
+    try { state = JSON.parse(localStorage.getItem(todayKey()) || '{}'); }
+    catch(e) { state = {}; }
+  }
+
+  function saveState() {
+    localStorage.setItem(todayKey(), JSON.stringify(state));
+  }
+
+  /* ══════════════════════════════════════
+     HIT COUNTER
+  ══════════════════════════════════════ */
+  const visitCount = (parseInt(localStorage.getItem('hime-retro-visits') || '1336') + 1);
+  localStorage.setItem('hime-retro-visits', visitCount);
+  document.getElementById('hit-counter').textContent = String(visitCount).padStart(7, '0');
+
+  /* ══════════════════════════════════════
+     RENDER
+  ══════════════════════════════════════ */
+  function render() {
+    const container = document.getElementById('checklist');
+    container.innerHTML = '';
+
+    ITEMS.forEach(item => {
+      const done = !!state[item.id];
+      const div  = document.createElement('div');
+      div.className = 'retro-item' + (done ? ' done' : '');
+      div.setAttribute('role', 'checkbox');
+      div.setAttribute('aria-checked', String(done));
+      div.setAttribute('tabindex', '0');
+      div.setAttribute('aria-label', item.name);
+
+      div.innerHTML = `
+        <input type="checkbox" class="retro-cb" ${done ? 'checked' : ''} tabindex="-1" aria-hidden="true">
+        <span class="retro-emoji">${item.emoji}</span>
+        <span class="retro-text-wrap">
+          <span class="item-says-text">${item.says}</span>
+          <span class="item-name-text">${item.name}${item.optional ? ' <span style="color:#ffff00;font-size:0.7rem;font-weight:normal;">(optional!)</span>' : ''}</span>
+          ${item.note ? `<span class="item-note-text">${item.note}</span>` : ''}
+        </span>
+      `;
+
+      div.addEventListener('click', () => toggle(item.id, div));
+      div.addEventListener('keydown', e => {
+        if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(item.id, div); }
+      });
+
+      container.appendChild(div);
+    });
+
+    updateProgress();
+  }
+
+  function toggle(id, el) {
+    state[id] = !state[id];
+    saveState();
+    const done = state[id];
+    el.classList.toggle('done', done);
+    el.setAttribute('aria-checked', String(done));
+    el.querySelector('.retro-cb').checked = done;
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const required  = ITEMS.filter(i => !i.optional);
+    const doneCount = required.filter(i => state[i.id]).length;
+    const total     = required.length;
+    const pct       = Math.round((doneCount / total) * 100);
+
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('prog-label').textContent = `${doneCount} of ${total}`;
+    document.getElementById('prog-pct').textContent   = `[${pct}%]`;
+
+    const cel = document.getElementById('celebration');
+    if (doneCount === total) cel.classList.add('show');
+    else cel.classList.remove('show');
+  }
+
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    state = {};
+    saveState();
+    render();
+  });
+
+  /* ══════════════════════════════════════
+     INIT
+  ══════════════════════════════════════ */
+  loadState();
+  render();
+</script>
+</body>
+</html>

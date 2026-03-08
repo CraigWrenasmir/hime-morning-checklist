@@ -75,6 +75,24 @@
       color: var(--purple);
     }
 
+    .retro-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--purple);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: 2px dashed var(--purple-mid);
+      border-radius: 99px;
+      padding: 5px 16px;
+      transition: background 0.2s, color 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .retro-link:hover {
+      background: var(--purple-lt);
+      color: var(--purple-dk);
+    }
+
     /* ─── Progress bar ──────────────────────────────────── */
     .progress-wrap {
       max-width: 520px;
@@ -463,6 +481,7 @@
   <header class="header">
     <h1>Hime Helps You Get Ready! ⭐</h1>
     <p class="subtitle">Check everything off before you go — you've got this!</p>
+    <a href="retro.html" class="retro-link">🕹️ Try the retro version!</a>
   </header>
 
   <!-- Progress bar -->
